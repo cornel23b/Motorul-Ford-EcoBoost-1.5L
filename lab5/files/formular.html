@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Motorul Ford EcoBoost 1.5L - Recomandare Motor</title>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+
+        <header class="page-header">
+            <h1>EcoBoost 1.5L &mdash; Recomandare Motor</h1>
+            <div class="header-divider"></div>
+        </header>
+
+        <nav class="navbar">
+            <a href="../index.html" class="nav-link">Acasă</a>
+            <a href="ecoboost_3c.html" class="nav-link">Motor 3 cilindri</a>
+            <a href="ecoboost_4c.html" class="nav-link">Motor 4 cilindri</a>
+            <a href="comparatie.html" class="nav-link">Comparație</a>
+            <a href="formular.html" class="nav-link active">Recomandare</a>
+        </nav>
+
+        <div class="main-container">
+
+            <h2 class="section-title">Află ce motor ți se potrivește</h2>
+            <p class="description-text">
+                Completați formularul de mai jos și veți primi o recomandare personalizată
+                pentru motorul EcoBoost 1.5L potrivit nevoilor dumneavoastră.
+            </p>
+
+            <div class="table-wrapper">
+                <form name="formEcoBoost" action="recomandare.php" method="post">
+
+                    <table class="data-table" style="margin-bottom: 24px;">
+                        <tr>
+                            <th colspan="2">Date personale</th>
+                        </tr>
+                        <tr>
+                            <td>Numele dumneavoastră:</td>
+                            <td>
+                                <input type="text" name="nume" 
+                                       placeholder="Introduceți numele" 
+                                       size="30" maxlength="50"
+                                       style="background:#1a2a4a; color:#e0e0e0; 
+                                              border:1px solid #e8521a; 
+                                              padding:6px 10px; border-radius:4px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Tipul vehiculului dumneavoastră</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 16px 18px;">
+                                <input type="radio" name="vehicul" value="compact" id="v1">
+                                <label for="v1" style="color:#c0cfe0; margin-right:24px;">
+                                    Vehicul compact (Ford Focus, Fiesta)
+                                </label><br><br>
+                                <input type="radio" name="vehicul" value="mediu" id="v2">
+                                <label for="v2" style="color:#c0cfe0; margin-right:24px;">
+                                    Vehicul mediu (Ford Mondeo, Fusion)
+                                </label><br><br>
+                                <input type="radio" name="vehicul" value="cuv" id="v3">
+                                <label for="v3" style="color:#c0cfe0;">
+                                    CUV / Crossover (Ford Escape, C-Max)
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Prioritatea dumneavoastră</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 16px 18px;">
+                                <input type="radio" name="prioritate" value="economie" id="p1">
+                                <label for="p1" style="color:#c0cfe0; margin-right:24px;">
+                                    Consum redus de combustibil
+                                </label><br><br>
+                                <input type="radio" name="prioritate" value="putere" id="p2">
+                                <label for="p2" style="color:#c0cfe0; margin-right:24px;">
+                                    Putere maximă
+                                </label><br><br>
+                                <input type="radio" name="prioritate" value="echilibru" id="p3">
+                                <label for="p3" style="color:#c0cfe0;">
+                                    Echilibru putere/consum
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Comentarii suplimentare</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 16px 18px;">
+                                <textarea name="comentarii" rows="4" cols="50"
+                                          placeholder="Scrieți orice întrebare sau comentariu..."
+                                          style="background:#1a2a4a; color:#e0e0e0; 
+                                                 border:1px solid #1e3a5f; padding:8px;
+                                                 border-radius:4px; width:100%;
+                                                 resize:vertical;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align:center; padding:20px;">
+                                <input type="submit" value="Obține recomandarea →"
+                                       style="background-color:#e8521a; color:#fff;
+                                              border:none; padding:12px 32px;
+                                              font-size:0.9rem; letter-spacing:1.5px;
+                                              text-transform:uppercase; font-weight:700;
+                                              border-radius:4px; cursor:pointer;">
+                            </td>
+                        </tr>
+                    </table>
+
+                </form>
+            </div>
+
+            <div id="rezultat-ajax" class="summary-text" style="display:none; margin-top:24px;"></div>
+
+            <div class="back-link-wrapper">
+                <a href="../index.html" class="back-link">&#8592; Înapoi la pagina principală</a>
+            </div>
+
+        </div>
+
+        <footer class="page-footer">
+            &copy; Ford EcoBoost 1.5L &nbsp;|&nbsp; <span id="ceas-footer"></span>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="../script.js"></script>
+        <script>
+$(document).ready(function() {
+    $("#formEcoBoost").submit(function(e) {
+        e.preventDefault();
+
+        var date = {
+            nume:       $("input[name='nume']").val(),
+            vehicul:    $("input[name='vehicul']:checked").val(),
+            prioritate: $("input[name='prioritate']:checked").val(),
+            comentarii: $("textarea[name='comentarii']").val()
+        };
+
+        $.post("recomandare_ajax.php", date, function(raspuns) {
+            $("#rezultat-ajax").html(raspuns).css("display", "block");
+        });
+    });
+});
+</script>
+    </body>
+</html>

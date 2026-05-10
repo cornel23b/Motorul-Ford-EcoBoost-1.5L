@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Motorul Ford EcoBoost 1.5L</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <header class="page-header">
+            <h1>Motorul Ford EcoBoost 1.5L</h1>
+            <div class="header-divider"></div>
+        </header>
+
+        <nav class="navbar">
+            <a href="index.html" class="nav-link active">Acasă</a>
+            <a href="files/ecoboost_3c.html" class="nav-link">Motor 3 cilindri</a>
+            <a href="files/ecoboost_4c.html" class="nav-link">Motor 4 cilindri</a>
+            <a href="files/comparatie.html" class="nav-link">Comparație</a>
+            <a href="files/formular.html" class="nav-link">Recomandare</a>
+        </nav>
+
+        <div id="salut-dinamic" style="text-align:center;
+        padding:10px; color:#9db4cc;
+        font-size:0.9rem;">
+        </div>
+
+        <div class="main-container">
+
+            <div class="hero-image-wrapper">
+                <img src="imagini/Ford_EcoBoost_logo.jpg" alt="Ford EcoBoost Logo" class="hero-image">
+            </div>
+
+            <h2 class="section-title">Descriere generală</h2>
+            <p class="description-text">
+                EcoBoost este o serie de motoare pe benzină cu turbocompresor și injecție directă, produse de Ford Motor Company și
+                dezvoltate inițial în colaborare cu FEV Inc. (în prezent FEV North America Inc.).
+                Motoarele EcoBoost sunt proiectate pentru a oferi putere și cuplu comparabile cu cele ale motoarelor aspirate
+                natural, cu cilindree mai mare, în timp ce obțin o eficiență a consumului de combustibil cu până la 20% mai bună
+                și emisii de gaze cu efect de seră cu până la 15% mai reduse, conform Ford.
+                Producătorul consideră tehnologia EcoBoost ca fiind mai puțin costisitoare și mai versatilă decât dezvoltarea sau
+                extinderea utilizării motoarelor hibride și diesel.
+                Motoarele EcoBoost sunt disponibile pe scară largă în gama de vehicule Ford.
+            </p>
+
+            <h3 class="section-title-centered">Există două variante principale:</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <tr>
+                        <th>Varianta motor</th>
+                        <th>Descriere</th>
+                        <th>Link</th>
+                    </tr>
+                    <tr>
+                        <td>3 cilindri</td>
+                        <td>Motor economic, greutate redusă</td>
+                        <td><a href="files/ecoboost_3c.html">Vezi detalii</a></td>
+                    </tr>
+                    <tr>
+                        <td>4 cilindri</td>
+                        <td>Motor mai echilibrat și mai puternic</td>
+                        <td><a href="files/ecoboost_4c.html">Vezi detalii</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card-grid">
+                <a href="files/ecoboost_3c.html" class="engine-card">
+                    <img src="imagini/1024x1024.webp" alt="Ford EcoBoost 3 cilindri">
+                    <div class="engine-card-label">Ford EcoBoost 3 cilindri</div>
+                </a>
+                <a href="files/ecoboost_4c.html" class="engine-card">
+                    <img src="imagini/Ford-1.5L-EcoBoost-I4-Engine-001.jpg" alt="Ford EcoBoost 4 cilindri">
+                    <div class="engine-card-label">Ford EcoBoost 4 cilindri</div>
+                </a>
+            </div>
+
+<h2 class="section-title" style="margin-top:40px;">Informații suplimentare</h2>
+<p class="description-text">Apăsați butonul pentru a încărca informații tehnice suplimentare.</p>
+
+<div style="text-align:center; margin-bottom:20px;">
+    <button id="btn-incarca-info" class="back-link" style="cursor:pointer;">
+        Încarcă informații AJAX
+    </button>
+</div>
+
+<div id="info-ajax-rezultat" class="summary-text" style="display:none;"></div>
+        </div>
+
+        <footer class="page-footer">
+            &copy; Ford EcoBoost 1.5L &nbsp;|&nbsp; <span id="ceas-footer"></span>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="script.js"></script>
+        <script>
+$(document).ready(function() {
+    $("#btn-incarca-info").click(function() {
+        $.ajax({
+            url: "files/ajax_info.txt",
+            success: function(data, status) {
+                $("#info-ajax-rezultat").html(data).css("display", "block");
+            },
+            error: function(xhr, status, error) {
+                $("#info-ajax-rezultat")
+                    .html("Eroare la incarcare: " + status)
+                    .css("display", "block");
+            }
+        });
+    });
+});
+</script>
+    </body>
+</html>
